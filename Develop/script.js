@@ -6,9 +6,15 @@ var numberchar = "0123456789"
 var specchar = "!$%&'()*+,-./:;<=>?@[^_`{|}~"
 
 function generatePassword () {
-  prompt("How many digits?");
-  return "password"
+  pwlength = parseInt(prompt("How many characters would you like in your password? (Minimum of 8, Maximum of 128)"));
+  return "";
 }
+
+var addlowerchar = confirm("Would you like lower case characters?")
+var addupperchar = confirm("Would you like upper case characters?")
+var addnumberchar = confirm("Would you like number characters?")
+var addspecchar = confirm("Would you like special characters?")
+
 
 // Write password to the #password input
 function writePassword() {
