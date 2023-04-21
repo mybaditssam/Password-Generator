@@ -1,36 +1,54 @@
 // Assignment Code
 var generateBtn = document.querySelector("#generate");
-var lowerchar = "abcdefghijklmnopqrstuvwxyz";
-var upperchar = "ABCDEFGHIJKLMNOPQRSTUVWXYZ"
-var numberchar = "0123456789"
-var specchar = "!$%&'()*+,-./:;<=>?@[^_`{|}~"
+var lowerchar = ["a", "b", "c", "d", "e", "f", "g", "h", "i", "j", "k", "l", "m", "n", "o", "p", "q", "r", "s", "t", "u", "v", "w", "x", "y", "z"];
+var upperchar = ["A", "B", "C", "D", "E", "F", "G", "H", "I", "J", "K", "L", "M", "N", "O", "P", "Q", "R", "S", "T", "U", "V", "W", "X", "Y", "Z"
+];
+var numberchar = ["0", "1", "2", "3", "4", "5", "6", "7", "8", "9"];
+var specchar = [
+  "!", "$", "%", "&", "'", "(", ")", "*", "+", ",", "-", ".", "/", ":", 
+  ";", "<", "=", ">", "?", "@", "[", "^", "_", "`", "{", "|", "}", "~"
+];
+
+
 
 function generatePassword () {
-  pwlength = parseInt(prompt("How many characters would you like in your password? (Minimum of 8, Maximum of 128)"));
-  return "";
+  var passwordlength = prompt("Choose between 8 and 128 characters");
+  var confirmlower = confirm("Would you like lower case letters?")
+  var confirmtupper = confirm("Would you like upper case letters?")
+  var confirmnumb = confirm("Would you like numbers?")
+  var confirmspec = confirm("Would you like special characters?")
+  var charSet = [];
+
+  if (confirmlower) {
+    charSet = charSet.concat(lowerchar);
+  }
+  if (confirmtupper) {
+    charSet = charSet.concat(upperchar);
+  }
+  if (confirmnumb) {
+    charSet = charSet.concat(numberchar);
+  }
+  if (confirmspec) {
+    charSet = charSet.concat(specchar);
+  }
+  if (charSet.length === 0) {
+    alert("Select at least one character type");
+    return "";
+  }
+  var generatedpassword = "";
+  for (var i = 0; i < passwordlength; i++) {
+    var randomIndex = Math.floor(Math.random() * charSet.length);
+    generatedpassword += charSet[randomIndex];
+  }
+  return generatedpassword;
 }
-
-var addlowerchar = confirm("Would you like lower case characters?")
-var addupperchar = confirm("Would you like upper case characters?")
-var addnumberchar = confirm("Would you like number characters?")
-var addspecchar = confirm("Would you like special characters?")
-
 
 // Write password to the #password input
 function writePassword() {
   var password = generatePassword();
   var passwordText = document.querySelector("#password");
-
   passwordText.value = password;
 
 }
-
 // Add event listener to generate button
 generateBtn.addEventListener("click", writePassword);
-
-
-// When generate button is clicked
-// User is prompted password criteria 
-//    - criteria must be 8 - 128 characters
-//    - at least one character type should be chosen
-// Password displays on page
